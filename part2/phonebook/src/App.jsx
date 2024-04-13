@@ -35,15 +35,39 @@ const App = () => {
       !persons.some((item) => item.name.toLowerCase() === newName.toLowerCase())
     ) {
       if (newName && newNumber) {
+        // try {
+        //   const data = await addContact(newName, newNumber);
+        //   console.log(data);
+        //   setPersons(persons.concat(data));
+        //   setMessage(`Added ${newName}`);
+        //   setType("success");
+        //   setNewName("");
+        //   setTimeout(() => {
+        //     setMessage(null);
+        //   }, 2000);
+        // } catch (error) {
+        //   console.log(error);
+        //   setMessage(error.message);
+        // }
+
         const data = await addContact(newName, newNumber);
-        console.log(data);
-        setPersons(persons.concat(data));
-        setMessage(`Added ${newName}`);
-        setType("success");
-        setNewName("");
-        setTimeout(() => {
-          setMessage(null);
-        }, 2000);
+
+        if (data?.name) {
+          setPersons(persons.concat(data));
+          setMessage(`Added ${newName}`);
+          setType("success");
+          setNewName("");
+          setTimeout(() => {
+            setMessage(null);
+          }, 2000);
+        } else {
+          setMessage(` ${data}`);
+          setType("error");
+          setNewName("");
+          setTimeout(() => {
+            setMessage(null);
+          }, 2000);
+        }
       } else {
         alert("Name and Number is required");
       }
@@ -61,16 +85,23 @@ const App = () => {
           number: newNumber,
         });
 
-        console.log(data);
-
-        setPersons(
-          persons.map((person) => (person.id !== data.id ? person : data))
-        );
-        setMessage(`Updated ${newName}`);
-        setType("success");
-        setTimeout(() => {
-          setMessage(null);
-        }, 2000);
+        if (data.name) {
+          setPersons(
+            persons.map((person) => (person.id !== data.id ? person : data))
+          );
+          setMessage(`Updated ${newName}`);
+          setType("success");
+          setTimeout(() => {
+            setMessage(null);
+          }, 2000);
+        } else {
+          setMessage(` ${data}`);
+          setType("error");
+          setNewName("");
+          setTimeout(() => {
+            setMessage(null);
+          }, 2000);
+        }
       }
     }
   };

@@ -17,6 +17,7 @@ export const updateContact = async (id, data) => {
     return response.data;
   } catch (error) {
     console.log(error);
+    return error.response.data.error;
   }
 };
 
@@ -38,5 +39,6 @@ export const addContact = async (newName, newNumber) => {
     return response.data;
   } catch (error) {
     console.log(error);
+    return error.response.data.error;
   }
 };

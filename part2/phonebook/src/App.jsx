@@ -21,6 +21,8 @@ const App = () => {
   useEffect(() => {
     async function fetchData() {
       const data = await getAllContacts();
+
+      console.log("data", data);
       setPersons(data);
     }
     fetchData();
@@ -74,7 +76,7 @@ const App = () => {
   };
 
   const filteredPersons = persons?.filter((person) =>
-    person.name.toLowerCase().includes(search.toLowerCase())
+    person?.name?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (

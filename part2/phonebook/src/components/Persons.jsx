@@ -16,7 +16,7 @@ const Persons = ({
     if (confirmation) {
       try {
         const response = await deleteContact(id);
-        setPersons(persons.filter((person) => person.id !== id));
+        setPersons(persons?.filter((person) => person.id !== id));
 
         if (response.id) {
           setMessage(`Contact deleted Successfully`);
